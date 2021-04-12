@@ -2,6 +2,7 @@ const express = require('express');
 const dbDate = require('../db/dbdate.js');
 const dbCalendar = require('../db/dbcalendar.js');
 const dbGaming = require('../db/dbgaming.js');
+const dbTodos = require('../db/dbtodo.js');
 const router = express.Router();
 
 //Alle Tabellen 
@@ -257,6 +258,61 @@ router.put('/gaming/game/:id/update/:name/:serie/:genre/:jahr/:entwickler/:dimen
     res.json(results);
 
     } catch(e){
+        res.sendStatus(500);
+    }
+})
+
+/////////////////////////////////////////////////
+////////////////todos
+router.get('/todos/todo/', async(req, res, next) => {
+    try{
+        let results = await dbTodos.getTodos()
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+    }
+})
+
+router.get('/todos/verwendung/', async(req, res, next) => {
+    try{
+        let results = await dbTodos.getVerwendungen()
+        res.json(results);
+    } catch(e){
+        res.sendStatus(500);
+    }
+})
+
+
+router.post('/todos/todo/add/:title/:text/:verwendung/:prio/:status/', async(req, res, next) => {
+    try {
+        let results = await dbTodos.addTodo(
+            req.params.title, 
+            req.params.text, 
+            req.params.verwendung, 
+            req.params.prio, 
+            req.params.status,
+            )
+            res.json(results);
+    } catch(e){
+        console.log(e)
+        res.sendStatus(500);
+    }
+})
+
+router.put('/todos/todo/:id/update/:title/:text/:verwendung/:prio/:status/', async(req, res, next) => {
+    try {
+        let results = await dbTodos.updateTodo( 
+            req.params.id,
+            req.params.title, 
+            req.params.text, 
+            req.params.verwendung,
+            req.params.prio, 
+            req.params.status, 
+        )
+    res.json(results);
+
+    } catch(e){
+        console.log(e);
         res.sendStatus(500);
     }
 })
