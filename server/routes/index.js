@@ -77,7 +77,7 @@ router.get('/calendar/tables', async(req, res, next) => {
 router.get('/calendar/:table', async (req, res, next) => {
     try {
         let calendar = await dbCalendar.allCalendarDates(req.params.table);
-        console.log(calendar);
+        // console.log(calendar);
         res.json({calendar});
     } catch(e){
         console.log(e);
