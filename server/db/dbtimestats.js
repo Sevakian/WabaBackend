@@ -7,7 +7,7 @@ const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'datum',
+    database: 'timestats',
     port: '3306'
 })
 
@@ -33,17 +33,6 @@ db.allDates = (table) => {
         });
     });
 };
-
-db.one = (id) => {
-    return new Promise((resolve, reject) => {
-        db.query('SELECT * FROM vdatum WHERE datum_id = ?', id ,(err, results) => {
-            if(err){
-                return reject(err);
-            }
-            return resolve(results[0]);
-        });
-    });
-}
 
 //add
 

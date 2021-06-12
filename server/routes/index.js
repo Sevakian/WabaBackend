@@ -1,14 +1,14 @@
 const express = require('express');
-const dbDate = require('../db/dbdate.js');
+const dbTimestats = require('../db/dbtimestats.js');
 const dbCalendar = require('../db/dbcalendar.js');
 const dbGaming = require('../db/dbgaming.js');
 const dbTodos = require('../db/dbtodo.js');
 const router = express.Router();
 
 //Alle Tabellen 
-router.get('/date/tables', async(req, res, next) => {
+router.get('/timestats/tables', async(req, res, next) => {
     try {
-        let results = await dbDate.dateTables();
+        let results = await dbTimestats.dateTables();
         res.json(results);
     } catch(e){
         console.log(e);
@@ -17,9 +17,9 @@ router.get('/date/tables', async(req, res, next) => {
 })
 
 //Alle Daten einer Tabelle
-router.get('/date/:table', async (req, res, next) => {
+router.get('/timestats/:table', async (req, res, next) => {
     try {
-        let results = await dbDate.allDates(req.params.table);
+        let results = await dbTimestats.allDates(req.params.table);
         res.json(results);
     } catch(e){
         console.log(e);
@@ -28,9 +28,9 @@ router.get('/date/:table', async (req, res, next) => {
 })
 
 // Neues Datum für eine Tabelle 
-router.post('/date/:table/:value', async(req, res, next) => {
+router.post('/timestats/:table/:value', async(req, res, next) => {
     try {
-        let results = await dbDate.addDate(req.params.table, req.params.value);
+        let results = await dbTimestats.addDate(req.params.table, req.params.value);
         res.json(results);
     } catch(e){
         console.log(e);
@@ -39,9 +39,9 @@ router.post('/date/:table/:value', async(req, res, next) => {
 })
 
 // Neue Tabelle anlegen
-router.post('/date/:table', async(req, res, next) => {
+router.post('/timestats/:table', async(req, res, next) => {
     try {
-        let results = await dbDate.addDateTable(req.params.table);
+        let results = await dbTimestats.addDateTable(req.params.table);
         res.json(results);
     } catch(e){
         console.log(e);
